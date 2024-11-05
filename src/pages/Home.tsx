@@ -5,9 +5,9 @@ function Home() {
       <motion.div
          drag
          dragSnapToOrigin
-         className="flex w-40 items-center justify-center bg-gray-600 text-yellow-500"
+         className="flex w-40 items-center justify-center"
       >
-         <h1>hello</h1>
+         <h1>메인 화면</h1>
       </motion.div>
    );
 }
