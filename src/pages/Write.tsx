@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+//import pb from '/src/utils/pocketbase';
 
 function Write() {
    const navigate = useNavigate();
@@ -9,11 +10,12 @@ function Write() {
       formState: { errors },
    } = useForm();
 
-   const onValid = (data: any) => {
+   const onValid = async (data: any) => {
       if (errors === null) {
          return;
       }
       console.log(data);
+      // await pb.collection('memo').create({});
       navigate('/memo');
    };
 
