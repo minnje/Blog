@@ -1,6 +1,12 @@
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-//import pb from '/src/utils/pocketbase';
+import pb from '../utils/pocketbase';
+
+export interface IMemo {
+   title: string;
+   content: string;
+   extra?: string;
+}
 
 function Write() {
    const navigate = useNavigate();
@@ -14,8 +20,8 @@ function Write() {
       if (errors === null) {
          return;
       }
-      console.log(data);
-      // await pb.collection('memo').create({});
+      const { title, content } = data;
+      await pb.collection('memo').create({ title, content });
       navigate('/memo');
    };
 
