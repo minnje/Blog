@@ -1,10 +1,23 @@
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getMemo } from '../utils/api';
 
 function Memo() {
    const { memoId } = useParams();
-   console.log(memoId);
+   const { isLoading, error, data } = useQuery(['memo', memoId], () =>
+      getMemo(memoId + '')
+   );
 
-   return <h1 className="text-7xl">{memoId}번째 메모</h1>;
+   console.log(data);
+
+   return (
+      <article>
+         <h1>{data?.title}</h1>
+         <p>{data?.content}</p>
+         {isLoading ? <span>Loading...</span> : null}
+         {error ? <span>error!</span> : null}
+      </article>
+   );
 }
 
 export default Memo;

@@ -1,6 +1,6 @@
-// import { atom } from 'recoil';
+import { atom } from 'recoil';
 
-// export const memoListState = atom({
-//    key: 'memoListState',
-//    default: [],
-// });
+export const memoIdState = atom({
+   key: 'memoIdState',
+   default: '',
+});

@@ -1,6 +1,15 @@
-function Layout() {
+import Header from './Header';
+import Profile from './Profile';
+
+function Layout({ children }: any) {
    return (
-      <div className="flex bg-rose-500 md:bg-teal-600 lg:bg-gray-800"></div>
+      <>
+         <Header />
+         <div className="flex">
+            <Profile />
+            {children}
+         </div>
+      </>
    );
 }
 

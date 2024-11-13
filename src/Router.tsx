@@ -4,15 +4,16 @@ import MemoList from './pages/MemoList';
 import Memo from './pages/Memo';
 import Write from './pages/Write';
 import Home from './pages/Home';
-import Header from './components/Header';
+import Layout from './components/Layout';
 
 const router = createBrowserRouter([
    {
       path: '/',
       element: (
          <>
-            <Header />
-            <Home />
+            <Layout>
+               <Home />
+            </Layout>
          </>
       ),
       errorElement: <Error />,
@@ -21,8 +22,9 @@ const router = createBrowserRouter([
       path: '/write',
       element: (
          <>
-            <Header />
-            <Write />
+            <Layout>
+               <Write />
+            </Layout>
          </>
       ),
       errorElement: <Error />,
@@ -31,18 +33,23 @@ const router = createBrowserRouter([
       path: '/memo',
       element: (
          <>
-            <Header />
-            <MemoList />
+            <Layout>
+               <MemoList />
+            </Layout>
          </>
       ),
       errorElement: <Error />,
-      children: [
-         {
-            path: ':memoId',
-            element: <Memo />,
-            errorElement: <Error />,
-         },
-      ],
+   },
+   {
+      path: ':memoId',
+      element: (
+         <>
+            <Layout>
+               <Memo />
+            </Layout>
+         </>
+      ),
+      errorElement: <Error />,
    },
 ]);
 
