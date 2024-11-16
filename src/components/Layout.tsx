@@ -1,15 +1,15 @@
 import Header from './Header';
-import Profile from './Profile';
+import Sidebar from './Sidebar';
 
 function Layout({ children }: any) {
    return (
-      <>
+      <div className="">
          <Header />
          <div className="flex">
-            <Profile />
+            <Sidebar />
             {children}
          </div>
-      </>
+      </div>
    );
 }
 

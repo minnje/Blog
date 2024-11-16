@@ -5,6 +5,7 @@ import Memo from './pages/Memo';
 import Write from './pages/Write';
 import Home from './pages/Home';
 import Layout from './components/Layout';
+import Troubleshooting from './pages/Trouble';
 
 const router = createBrowserRouter([
    {
@@ -35,6 +36,17 @@ const router = createBrowserRouter([
          <>
             <Layout>
                <MemoList />
+            </Layout>
+         </>
+      ),
+      errorElement: <Error />,
+   },
+   {
+      path: '/troubleshooting',
+      element: (
+         <>
+            <Layout>
+               <Troubleshooting />
             </Layout>
          </>
       ),

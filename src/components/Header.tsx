@@ -1,19 +1,22 @@
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function Header() {
    return (
-      <nav className="mb-2 flex flex-row items-center gap-3 border-b border-[#4A090D]">
-         <Link to={'/'} className="px-1">
-            <img
-               src={`${import.meta.env.BASE_URL}assets/mainLogo.svg`}
-               width={40}
-               alt="홈페이지 로고"
-            />
-         </Link>
-         <Link to={'/memo'}>
-            <span className="text-sm">기록</span>
-         </Link>
-      </nav>
+      <header>
+         <nav className="mb-2 flex flex-row items-center gap-3">
+            <Link to={'/'} className="px-1">
+               <motion.img
+                  className="bg-transparent"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  src={`${import.meta.env.BASE_URL}assets/mainLogo.svg`}
+                  width={40}
+                  alt="홈페이지 로고"
+               />
+            </Link>
+         </nav>
+      </header>
    );
 }
 
