@@ -5,7 +5,7 @@ import Memo from './pages/Memo';
 import Write from './pages/Write';
 import Home from './pages/Home';
 import Layout from './components/Layout';
-import Troubleshooting from './pages/Trouble';
+import Troubleshooting from './pages/Troubleshooting';
 
 const router = createBrowserRouter([
    {
@@ -40,6 +40,17 @@ const router = createBrowserRouter([
          </>
       ),
       errorElement: <Error />,
+      children: [
+         {
+            path: ':memoId',
+            element: (
+               <>
+                  <Memo />
+               </>
+            ),
+            errorElement: <Error />,
+         },
+      ],
    },
    {
       path: '/troubleshooting',
@@ -47,17 +58,6 @@ const router = createBrowserRouter([
          <>
             <Layout>
                <Troubleshooting />
-            </Layout>
-         </>
-      ),
-      errorElement: <Error />,
-   },
-   {
-      path: ':memoId',
-      element: (
-         <>
-            <Layout>
-               <Memo />
             </Layout>
          </>
       ),

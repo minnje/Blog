@@ -5,7 +5,7 @@ function Layout({ children }: any) {
    return (
       <div className="">
          <Header />
-         <div className="flex">
+         <div className="flex gap-4">
             <Sidebar />
             {children}
          </div>

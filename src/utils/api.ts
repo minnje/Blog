@@ -5,6 +5,11 @@ export async function getMemoList() {
    return memoList;
 }
 
+export async function getTroubleList() {
+   const troubleList = await pb.collection('trouble').getFullList(50);
+   return troubleList;
+}
+
 export async function getMemo(memoId: string) {
    const memo = await pb.collection('memo').getOne(memoId);
    return memo;

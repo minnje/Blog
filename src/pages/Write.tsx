@@ -13,6 +13,7 @@ function Write() {
    const {
       register,
       handleSubmit,
+      watch,
       formState: { errors },
    } = useForm();
 
@@ -20,10 +21,14 @@ function Write() {
       if (errors === null) {
          return;
       }
+
       const { title, content } = data;
+
       await pb.collection('memo').create({ title, content });
       navigate('/memo');
    };
+
+   console.log(watch());
 
    return (
       <>
@@ -51,6 +56,7 @@ function Write() {
                placeholder="내용"
             />
             <span>{JSON.stringify(errors.content?.message)}</span>
+
             <button type="submit">완료</button>
          </form>
          <Outlet />
