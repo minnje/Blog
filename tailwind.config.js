@@ -7,6 +7,9 @@ export default {
             main: {
                DEFAULT: '#4A090D',
             },
+            sub: {
+               DEFAULT: '#E7D8CB',
+            },
          },
       },
    },

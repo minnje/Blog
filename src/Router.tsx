@@ -1,11 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Error from './pages/Error';
-import MemoList from './pages/MemoList';
 import Memo from './pages/Memo';
 import Write from './pages/Write';
 import Home from './pages/Home';
 import Layout from './components/Layout';
-import Troubleshooting from './pages/Troubleshooting';
+import List from './pages/List';
 
 const router = createBrowserRouter([
    {
@@ -35,7 +34,7 @@ const router = createBrowserRouter([
       element: (
          <>
             <Layout>
-               <MemoList />
+               <List />
             </Layout>
          </>
       ),
@@ -57,11 +56,22 @@ const router = createBrowserRouter([
       element: (
          <>
             <Layout>
-               <Troubleshooting />
+               <List />
             </Layout>
          </>
       ),
       errorElement: <Error />,
+      children: [
+         {
+            path: ':troubleId',
+            element: (
+               <>
+                  <Memo />
+               </>
+            ),
+            errorElement: <Error />,
+         },
+      ],
    },
 ]);
 

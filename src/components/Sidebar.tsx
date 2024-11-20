@@ -1,27 +1,22 @@
 import { useQuery } from 'react-query';
 import { getProfile } from '../utils/api';
-import { useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Tilt from 'react-vanilla-tilt';
 import { NavLink } from 'react-router-dom';
 
 function Sidebar() {
    const { isLoading, error, data } = useQuery('profile', getProfile);
-   const location = useLocation();
-   console.log(location.pathname);
 
-   const item = {
-      initial: { opacity: 0, y: 100 },
-      animate: { opacity: 1, y: 0 },
-   };
+   // const list = {
+   //    initial: { opacity: 0 },
+   //    animate: {
+   //       opacity: 1,
+   //       transition: { type: 'tween' },
+   //    },
+   // };
 
-   const list = {
-      initial: { opacity: 0 },
-      animate: {
-         opacity: 1,
-         transition: { type: 'tween' },
-      },
-   };
+   const MotionNavLink = motion(NavLink);
+
    return (
       <div className="flex flex-col gap-2">
          {isLoading ? <span>Loading...</span> : null}
@@ -36,55 +31,48 @@ function Sidebar() {
                      width={130}
                   />
                </Tilt>
-               <div className="flex flex-col space-y-1 px-1 py-2 text-xs">
-                  <figcaption className="font-medium">{data.name}</figcaption>
-                  <figcaption className="text-[10px]">{data.email}</figcaption>
+               <div className="flex flex-col space-y-1 bg-transparent px-1 py-2 text-xs">
+                  <figcaption className="bg-transparent font-medium">
+                     {data.name}
+                  </figcaption>
+                  <figcaption className="bg-transparent text-[10px]">
+                     {data.email}
+                  </figcaption>
                </div>
             </figure>
          ))}
-         <motion.nav>
-            <motion.ul
-               variants={list}
-               initial="initial"
-               animate="animate"
-               className="flex flex-col space-y-1 p-2 text-[11px] text-neutral-800"
-            >
-               <NavLink
-                  to="/memo"
-                  className={({ isActive }) =>
-                     isActive
-                        ? 'text-main underline'
-                        : 'transition-colors duration-100 hover:text-main hover:underline'
-                  }
-               >
-                  <motion.li
+         <nav>
+            <motion.ul className="flex flex-col space-y-1 p-2 text-[11px] text-neutral-800">
+               <motion.li tabIndex={-1}>
+                  <MotionNavLink
+                     to="/memo"
                      whileHover={{ scale: 1.05 }}
                      whileTap={{ scale: 0.95 }}
-                     variants={item}
-                     tabIndex={-1}
+                     className={({ isActive }) =>
+                        `focus-custom block rounded-2xl px-2 py-1 ${
+                           isActive ? 'bg-sub ring-2 ring-main' : ''
+                        }`
+                     }
                   >
                      -Memo
-                  </motion.li>
-               </NavLink>
-               <NavLink
-                  to="/troubleshooting"
-                  className={({ isActive }) =>
-                     isActive
-                        ? 'text-main underline'
-                        : 'transition-colors duration-100 hover:text-main hover:underline'
-                  }
-               >
-                  <motion.li
+                  </MotionNavLink>
+               </motion.li>
+               <motion.li tabIndex={-1}>
+                  <MotionNavLink
+                     to="/troubleshooting"
                      whileHover={{ scale: 1.05 }}
                      whileTap={{ scale: 0.95 }}
-                     variants={item}
-                     tabIndex={-1}
+                     className={({ isActive }) =>
+                        `focus-custom block rounded-2xl px-2 py-1 ${
+                           isActive ? 'bg-sub ring-2 ring-main' : ''
+                        }`
+                     }
                   >
                      -Trouble shooting
-                  </motion.li>
-               </NavLink>
+                  </MotionNavLink>
+               </motion.li>
             </motion.ul>
-         </motion.nav>
+         </nav>
       </div>
    );
 }

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 function Header() {
    return (
       <header className="mb-3 mt-2 flex items-center">
-         <Link to={'/'} className="px-1">
+         <Link to={'/'} className="focus-custom rounded-2xl">
             <motion.img
                className="bg-transparent"
                whileHover={{ scale: 1.05 }}
