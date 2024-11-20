@@ -6,6 +6,7 @@ export interface IMemo {
    title: string;
    content: string;
    extra?: string;
+   img?: string; // Store the img URL or ID
 }
 
 function Write() {
@@ -22,9 +23,29 @@ function Write() {
          return;
       }
 
-      const { title, content } = data;
+      const { title, content, img } = data;
 
-      await pb.collection('memo').create({ title, content });
+      if (img && img[0]) {
+         const formData = new FormData();
+
+         for (let file of img) {
+            formData.append('img', file);
+         }
+
+         formData.append('content', content);
+         formData.append('title', title);
+
+         try {
+            await pb.collection('memo').create(formData);
+         } catch (error) {
+            console.error('File upload failed', error);
+         }
+      } else {
+         await pb.collection('memo').create({
+            title,
+            content,
+         });
+      }
       navigate('/memo');
    };
 
@@ -56,6 +77,8 @@ function Write() {
                placeholder="내용"
             />
             <span>{JSON.stringify(errors.content?.message)}</span>
+
+            <input type="file" {...register('img')} multiple />
 
             <button type="submit">완료</button>
          </form>
