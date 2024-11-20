@@ -1,22 +1,15 @@
-import { useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { getMemo } from '../utils/api';
+import { useContentQuery } from '../utils/api';
 
-function Memo() {
-   const { memoId } = useParams();
-   const { isLoading, error, data } = useQuery(['memo', memoId], () =>
-      getMemo(memoId + '')
-   );
+function Content() {
+   const { data, isLoading, error } = useContentQuery();
 
-   console.log(data);
-
-   const date = data?.created.substring(0, 10);
+   const shortDate = data?.created.substring(0, 10);
 
    return (
       <main className="mx-auto flex w-full flex-col border-t px-4 text-xs text-neutral-800">
-         <article className="">
+         <article>
             <h1 className="py-1 text-center">{data?.title}</h1>
-            <span className="mb-2 flex justify-end">{date}</span>
+            <span className="mb-2 flex justify-end">{shortDate}</span>
             {data ? (
                <p>
                   {data.img ? (
@@ -37,4 +30,4 @@ function Memo() {
    );
 }
 
-export default Memo;
+export default Content;

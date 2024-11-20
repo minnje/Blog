@@ -1,10 +1,10 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import { useListCustomQuery } from '../utils/api';
+import { useListQuery } from '../utils/api';
 
 function List() {
    const location = useLocation();
-   const { data, isLoading, error } = useListCustomQuery();
+   const { data, isLoading, error } = useListQuery();
    console.log(data);
 
    return (
