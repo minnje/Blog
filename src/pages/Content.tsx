@@ -5,8 +5,6 @@ function Content() {
 
    const shortDate = data?.created.substring(0, 10);
 
-   console.log(data);
-
    return (
       <main className="mx-auto flex w-full flex-col border-t px-4 text-xs text-neutral-800">
          <article>

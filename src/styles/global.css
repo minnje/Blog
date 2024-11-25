@@ -2,8 +2,14 @@
    box-sizing: border-box;
    color: #111111;
    background-color: transparent;
+
+   .dark {
+      background-color: #44403c;
+   }
 }
 
 body {
    padding: 0.9375rem;
+   max-width: 48rem;
+   margin: 0 auto;
 }

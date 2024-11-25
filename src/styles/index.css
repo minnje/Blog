@@ -6,7 +6,7 @@
    .tilt-container {
       padding: 0 !important;
       margin: 0 !important  ;
-      width: 100% !important;
+      width: fit-content !important;
    }
 }
 

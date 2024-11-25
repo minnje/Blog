@@ -4,7 +4,6 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-   root: __dirname,
    base: '/',
    server: {
       host: 'localhost',

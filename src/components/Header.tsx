@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 function Header() {
    return (
-      <header className="mb-3 mt-2 flex items-center">
+      <header className="mb-3 mt-2 flex w-full items-center">
          <Link to={'/'} className="focus-custom rounded-2xl">
             <motion.img
                className="bg-transparent"
