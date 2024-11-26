@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { Location, useLocation, useParams } from 'react-router-dom';
 import pb from './pocketbase';
 import { useQuery } from 'react-query';
 
@@ -28,7 +28,7 @@ export async function getProfile() {
 }
 
 export function useListQuery() {
-   const location = useLocation();
+   const location: Location = useLocation();
    let queryKey, queryFn;
    if (location.pathname.includes('memo')) {
       queryKey = 'memoList';
@@ -51,6 +51,24 @@ export function useContentQuery() {
    } else if (troubleId) {
       queryKey = ['trouble', troubleId];
       queryFn = () => getTrouble(troubleId + '');
+   }
+
+   const { isLoading, error, data } = useQuery(queryKey!, queryFn!);
+   return { isLoading, error, data };
+}
+
+export function useEditQuery() {
+   const { editId } = useParams();
+   const collectionName = localStorage.getItem('collectionName');
+
+   let queryKey, queryFn;
+
+   if (collectionName === 'Memo') {
+      queryKey = ['memo', editId];
+      queryFn = () => getMemo(editId + '');
+   } else if (collectionName === 'Troubleshooting') {
+      queryKey = ['trouble', editId];
+      queryFn = () => getTrouble(editId + '');
    }
 
    const { isLoading, error, data } = useQuery(queryKey!, queryFn!);

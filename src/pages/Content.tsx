@@ -8,7 +8,11 @@ function Content() {
    const navigate = useNavigate();
 
    const shortDate = data?.created.substring(0, 10);
-   console.log(data);
+   console.log(data?.collectionName);
+
+   const handleEdit = () => {
+      localStorage.setItem('collectionName', `${data?.collectionName}`);
+   };
 
    const handleDelete = async () => {
       try {
@@ -43,8 +47,10 @@ function Content() {
                <h1 className="py-1 text-center">{data?.title}</h1>
                <span className="mb-2 flex justify-end">{shortDate}</span>
                <div className="flex flex-row justify-end">
-                  <Link to={`/edit/${data?.id}`}>수정</Link>|
-                  <button onClick={handleDeleteCheck}>삭제</button>
+                  <Link to={`/edit/${data?.id}`} onClick={handleEdit}>
+                     수정
+                  </Link>
+                  |<button onClick={handleDeleteCheck}>삭제</button>
                </div>
                {data?.img && data?.img.length !== 0
                   ? data?.img.map((img: string) => (
