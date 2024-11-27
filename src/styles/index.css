@@ -17,4 +17,7 @@
    .focus-custom-slim {
       @apply rounded-2xl focus:outline-none focus:ring-2 focus:ring-main;
    }
+   .input-basic {
+      @apply px-2 py-1 text-sm;
+   }
 }
