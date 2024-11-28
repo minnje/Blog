@@ -5,15 +5,18 @@ import router from './Router';
 import './styles/main.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { RecoilRoot } from 'recoil';
+import { HelmetProvider } from 'react-helmet-async';
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
    <StrictMode>
-      <RecoilRoot>
-         <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
-         </QueryClientProvider>
-      </RecoilRoot>
+      <HelmetProvider>
+         <RecoilRoot>
+            <QueryClientProvider client={queryClient}>
+               <RouterProvider router={router} />
+            </QueryClientProvider>
+         </RecoilRoot>
+      </HelmetProvider>
    </StrictMode>
 );

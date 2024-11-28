@@ -2,13 +2,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContentQuery } from '../utils/api';
 import pb from '../utils/pocketbase';
 import toast, { Toaster } from 'react-hot-toast';
+import { Helmet } from 'react-helmet-async';
 
 function Content() {
    const { data, isLoading, error } = useContentQuery();
    const navigate = useNavigate();
 
    const shortDate = data?.created.substring(0, 10);
-   console.log(data?.collectionName);
 
    const handleEdit = () => {
       localStorage.setItem('collectionName', `${data?.collectionName}`);
@@ -41,6 +41,9 @@ function Content() {
 
    return (
       <>
+         <Helmet>
+            <title>{`${data?.title} | minje blog`}</title>
+         </Helmet>
          <Toaster />
          <main className="mx-auto flex w-full flex-col border-t px-4 text-xs text-neutral-800">
             <article>
@@ -56,7 +59,7 @@ function Content() {
                   ? data?.img.map((img: string) => (
                        <p key={img}>
                           <img
-                             className="w-3/4"
+                             className="mb-1 w-3/4"
                              src={`${import.meta.env.VITE_PB_API}/files/${data.collectionName}/${data?.id}/${img}`}
                              alt="본문 이미지"
                              width={130}

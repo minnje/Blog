@@ -4,6 +4,7 @@ import { useListQuery } from '../utils/api';
 import { motion } from 'framer-motion';
 import { basicVar } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 function List() {
    const location = useLocation();
@@ -12,77 +13,91 @@ function List() {
    const MotionNavLink = motion(NavLink);
 
    return (
-      <motion.div
-         variants={basicVar}
-         initial="initial"
-         animate="animate"
-         className="flex w-full flex-col"
-      >
-         {location.pathname === '/memo' ? (
-            <Link
-               to={`${location.pathname}/write`}
-               aria-label="글쓰기 페이지로 이동"
-               className="focus-custom-slim w-fit"
-            >
-               <span
-                  className="mx-4 border-b border-neutral-600 text-xs"
-                  tabIndex={-1}
+      <>
+         <Helmet>
+            <title>
+               {`${data ? data[0]?.collectionName : location.pathname.substring(1)} | minje blog`}
+            </title>
+            <script
+               src="https://kit.fontawesome.com/7e06fe1b34.js"
+               crossOrigin="anonymous"
+            ></script>
+         </Helmet>
+         <motion.div
+            variants={basicVar}
+            initial="initial"
+            animate="animate"
+            className="flex w-full flex-col"
+         >
+            {location.pathname === '/memo' ? (
+               <Link
+                  to={`${location.pathname}/write`}
+                  aria-label="글쓰기 페이지로 이동"
+                  className="focus-custom-slim w-fit"
                >
-                  <i className="fa-regular fa-pen-to-square" aria-hidden></i>
-                  글쓰기
-               </span>
-            </Link>
-         ) : location.pathname === '/troubleshooting' ? (
-            <Link
-               to={`${location.pathname}/write`}
-               aria-label="글쓰기 페이지로 이동"
-               className="focus-custom-slim w-fit"
-            >
-               <span
-                  className="mx-4 border-b border-neutral-600 text-xs"
-                  tabIndex={-1}
+                  <span
+                     className="mx-4 border-b border-neutral-600 text-xs"
+                     tabIndex={-1}
+                  >
+                     <i className="fa-regular fa-pen-to-square" aria-hidden></i>
+                     글쓰기
+                  </span>
+               </Link>
+            ) : location.pathname === '/troubleshooting' ? (
+               <Link
+                  to={`${location.pathname}/write`}
+                  aria-label="글쓰기 페이지로 이동"
+                  className="focus-custom-slim w-fit"
                >
-                  <i className="fa-regular fa-pen-to-square" aria-hidden></i>
-                  글쓰기
-               </span>
-            </Link>
-         ) : null}
+                  <span
+                     className="mx-4 border-b border-neutral-600 text-xs"
+                     tabIndex={-1}
+                  >
+                     <i className="fa-regular fa-pen-to-square" aria-hidden></i>
+                     글쓰기
+                  </span>
+               </Link>
+            ) : null}
 
-         <nav className="mx-4 mb-6 mt-2 flex text-[.8125rem] text-neutral-800">
-            <h1 className="mr-6 font-medium">
-               {location.pathname.includes('memo')
-                  ? 'Memo'
-                  : location.pathname.includes('troubleshooting')
-                    ? 'Trouble shooting'
-                    : null}
-            </h1>
+            <nav className="mx-4 mb-6 mt-2 flex text-[.8125rem] text-neutral-800">
+               <h1 className="mr-6 font-medium">
+                  {location.pathname.includes('memo')
+                     ? 'Memo'
+                     : location.pathname.includes('troubleshooting')
+                       ? 'Trouble shooting'
+                       : null}
+               </h1>
 
-            <ul>
-               <span className="mb-2 block border-b px-1">제목</span>
-               {isLoading ? <li>Loading...</li> : null}
-               {error ? <li>error!</li> : null}
-               {data?.map((data) => (
-                  <li key={data.id} className="mb-1 rounded-2xl font-light">
-                     <MotionNavLink
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        to={`${data.id}`}
-                        className={({ isActive }) =>
-                           `focus-custom-slim block cursor-pointer px-[5px] ${
-                              isActive
-                                 ? `font-medium underline underline-offset-2`
-                                 : ``
-                           }`
-                        }
-                     >
-                        {data.title}
-                     </MotionNavLink>
-                  </li>
-               ))}
-            </ul>
-         </nav>
-         <Outlet />
-      </motion.div>
+               <ul aria-labelledby="section-title">
+                  <h2 id="section-title" className="mb-2 block border-b px-1">
+                     제목
+                  </h2>
+                  {isLoading ? <li>Loading...</li> : null}
+                  {error ? <li>error!</li> : null}
+                  {data?.map((data) => (
+                     <li key={data.id} className="mb-1 rounded-2xl font-light">
+                        <MotionNavLink
+                           whileHover={{ scale: 1.05 }}
+                           whileTap={{ scale: 0.95 }}
+                           to={`${data.id}`}
+                           role="link"
+                           className={({ isActive }) =>
+                              `focus-custom-slim block cursor-pointer px-[5px] ${
+                                 isActive
+                                    ? `font-medium underline underline-offset-2`
+                                    : ``
+                              }`
+                           }
+                        >
+                           {data.title}
+                        </MotionNavLink>
+                     </li>
+                  ))}
+               </ul>
+            </nav>
+            <Outlet />
+         </motion.div>
+      </>
    );
 }
 
