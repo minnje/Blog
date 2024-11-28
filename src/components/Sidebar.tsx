@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { getProfile } from '../utils/api';
 import { motion } from 'framer-motion';
-import Tilt from 'react-vanilla-tilt';
 import { NavLink } from 'react-router-dom';
+import Tilt from './Tilt';
 
 export const basicVar = {
    initial: { opacity: 0 },
@@ -31,6 +31,12 @@ function Sidebar() {
 
    const MotionNavLink = motion(NavLink);
 
+   const options = {
+      scale: 1.2,
+      speed: 1000,
+      max: 30,
+   };
+
    return (
       <motion.div
          variants={basicVar}
@@ -42,7 +48,7 @@ function Sidebar() {
          {error ? <span>error!</span> : null}
          {data?.map((data) => (
             <figure key={data.id} className="flex flex-col gap-2 border-b p-1">
-               <Tilt className="tilt-container" options={{ scale: 2, max: 25 }}>
+               <Tilt options={options}>
                   <img
                      className="rounded-lg"
                      src={`${import.meta.env.VITE_PB_API}/files/users/${data?.id}/${data?.avatar}`}
