@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-   .tilt-container {
-      padding: 0 !important;
-      margin: 0 !important  ;
-      width: fit-content !important;
-   }
-}
-
 @layer components {
    .focus-custom {
       @apply focus:outline-none focus:ring-4 focus:ring-main;

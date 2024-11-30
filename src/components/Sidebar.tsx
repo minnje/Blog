@@ -15,7 +15,7 @@ export const basicVar = {
    },
 };
 
-const slideVar = {
+export const slideVar = {
    initial: { opacity: 0 },
    animate: {
       opacity: 1,
@@ -32,9 +32,12 @@ function Sidebar() {
    const MotionNavLink = motion(NavLink);
 
    const options = {
-      scale: 1.2,
-      speed: 1000,
-      max: 30,
+      max: 25,
+      scale: 1.1,
+      speed: 3500,
+      transition: true,
+      glare: true,
+      'max-glare': 0.8,
    };
 
    return (
@@ -42,21 +45,21 @@ function Sidebar() {
          variants={basicVar}
          initial="initial"
          animate="animate"
-         className="flex min-w-44 flex-col gap-2"
+         className="flex h-fit min-w-44 flex-col gap-5 rounded-xl"
       >
          {isLoading ? <span>Loading...</span> : null}
          {error ? <span>error!</span> : null}
          {data?.map((data) => (
-            <figure key={data.id} className="flex flex-col gap-2 border-b p-1">
+            <figure key={data.id} className="mb-1 flex flex-col gap-2 p-1">
                <Tilt options={options}>
                   <img
-                     className="rounded-lg"
+                     className="rounded-xl"
                      src={`${import.meta.env.VITE_PB_API}/files/users/${data?.id}/${data?.avatar}`}
                      alt="프로필 이미지"
-                     width={170}
+                     width={180}
                   />
                </Tilt>
-               <div className="flex flex-col space-y-1 bg-transparent p-2 text-sm">
+               <div className="flex flex-col space-y-1 bg-transparent p-2">
                   <motion.figcaption
                      variants={slideVar}
                      className="bg-transparent font-medium"
@@ -65,7 +68,7 @@ function Sidebar() {
                   </motion.figcaption>
                   <motion.figcaption
                      variants={slideVar}
-                     className="bg-transparent text-xs text-neutral-600"
+                     className="bg-transparent text-xs font-medium text-neutral-600"
                   >
                      {data.email}
                   </motion.figcaption>
@@ -73,37 +76,37 @@ function Sidebar() {
             </figure>
          ))}
          <nav>
-            <ul className="flex flex-col space-y-1 p-2 text-xs text-neutral-800">
+            <ul className="flex flex-col gap-2 px-1 py-2 text-xs text-neutral-800">
                <motion.li variants={slideVar} tabIndex={-1}>
                   <MotionNavLink
                      to="/memo"
-                     whileHover={{ scale: 1.05 }}
+                     whileHover={{ backgroundColor: '#f5f5f5' }}
                      whileTap={{ scale: 0.95 }}
                      className={({ isActive }) =>
-                        `focus-custom block rounded-2xl px-2 py-[3px] ${
+                        `focus-custom block rounded-2xl px-2 py-[.375rem] ${
                            isActive
-                              ? 'bg-sub font-medium shadow-xl ring-2 ring-main'
+                              ? 'font-medium shadow-xl ring-2 ring-main'
                               : ''
                         }`
                      }
                   >
-                     -Memo
+                     Memo
                   </MotionNavLink>
                </motion.li>
                <motion.li variants={slideVar} tabIndex={-1}>
                   <MotionNavLink
                      to="/troubleshooting"
-                     whileHover={{ scale: 1.05 }}
+                     whileHover={{ backgroundColor: '#f5f5f5' }}
                      whileTap={{ scale: 0.95 }}
                      className={({ isActive }) =>
-                        `focus-custom block rounded-2xl px-2 py-[3px] ${
+                        `focus-custom block rounded-2xl px-2 py-[.375rem] ${
                            isActive
-                              ? 'bg-sub font-medium shadow-xl ring-2 ring-main'
+                              ? 'font-medium shadow-xl ring-2 ring-main'
                               : ''
                         }`
                      }
                   >
-                     -Trouble shooting
+                     Trouble shooting
                   </MotionNavLink>
                </motion.li>
             </ul>

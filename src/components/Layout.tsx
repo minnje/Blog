@@ -1,15 +1,16 @@
 import Header from './Header';
 import Sidebar from './Sidebar';
+import 'framer-motion';
 
 function Layout({ children }: any) {
    return (
-      <div className="">
+      <>
          <Header />
-         <div className="flex gap-4">
+         <div className="box-border flex h-[85vh] gap-4 rounded-xl bg-neutral-100 p-3">
             <Sidebar />
-            {children}
+            <div className="flex w-full">{children}</div>
          </div>
-      </div>
+      </>
    );
 }
 

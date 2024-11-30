@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useListQuery } from '../utils/api';
 import { motion } from 'framer-motion';
-import { basicVar } from '../components/Sidebar';
+import { basicVar, slideVar } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 
@@ -27,7 +27,7 @@ function List() {
             variants={basicVar}
             initial="initial"
             animate="animate"
-            className="flex w-full flex-col"
+            className="flex w-full flex-col rounded-xl bg-white p-3"
          >
             {location.pathname === '/memo' ? (
                <Link
@@ -59,8 +59,8 @@ function List() {
                </Link>
             ) : null}
 
-            <nav className="mx-4 mb-6 mt-2 flex text-[.8125rem] text-neutral-800">
-               <h1 className="mr-6 font-medium">
+            <nav className="mx-4 mb-9 mt-2 flex text-[.8125rem] text-neutral-800">
+               <h1 className="mr-7 font-medium">
                   {location.pathname.includes('memo')
                      ? 'Memo'
                      : location.pathname.includes('troubleshooting')
@@ -77,7 +77,8 @@ function List() {
                   {data?.map((data) => (
                      <li key={data.id} className="mb-1 rounded-2xl font-light">
                         <MotionNavLink
-                           whileHover={{ scale: 1.05 }}
+                           variants={slideVar}
+                           whileHover={{ backgroundColor: '#f5f5f5' }}
                            whileTap={{ scale: 0.95 }}
                            to={`${data.id}`}
                            role="link"
