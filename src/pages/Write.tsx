@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import pb from '../utils/pocketbase';
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 function Write() {
    const navigate = useNavigate();
@@ -10,6 +12,7 @@ function Write() {
    const {
       register,
       handleSubmit,
+      control,
       watch,
       formState: { errors },
    } = useForm();
@@ -31,6 +34,7 @@ function Write() {
             }
 
             formData.append('content', content);
+
             formData.append('title', title);
 
             try {
@@ -89,8 +93,6 @@ function Write() {
       }
    };
 
-   console.log(watch('img'));
-
    return (
       <>
          <Helmet>
@@ -118,18 +120,6 @@ function Write() {
                   placeholder="제목"
                />
                <span>{JSON.stringify(errors.title?.message)}</span>
-               <textarea
-                  className="focus-custom-slim input-basic pb-32 pt-1"
-                  {...register('content', {
-                     required: '내용을 입력해 주세요',
-                     maxLength: {
-                        value: 3000,
-                        message: '제목은 3000자 이내로 입력해 주세요',
-                     },
-                  })}
-                  placeholder="내용"
-               />
-               <span>{JSON.stringify(errors.content?.message)}</span>
 
                <label
                   htmlFor="img"
@@ -156,20 +146,36 @@ function Write() {
                   />
                )}
 
-               <div className="flex w-full flex-row justify-between">
-                  <button
-                     type="submit"
-                     className="focus-custom-slim input-basic w-full font-medium"
-                  >
-                     완료
-                  </button>
+               <Controller
+                  name="content"
+                  control={control}
+                  defaultValue={''}
+                  rules={{ required: '내용은 필수입니다.' }}
+                  render={({ field }) => (
+                     <ReactQuill
+                        value={field.value}
+                        onChange={(value) => {
+                           field.onChange(value);
+                        }}
+                        theme="snow"
+                     />
+                  )}
+               />
+               <span>{JSON.stringify(errors.content?.message)}</span>
 
+               <div className="mt-10 flex w-full flex-row justify-between">
                   <button
                      className="focus-custom-slim input-basic w-full font-medium"
                      onClick={() => navigate(-1)}
                      type="button"
                   >
                      취소
+                  </button>
+                  <button
+                     type="submit"
+                     className="focus-custom-slim input-basic w-full font-medium"
+                  >
+                     완료
                   </button>
                </div>
             </form>

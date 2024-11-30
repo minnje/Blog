@@ -1,12 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useContentQuery } from '../utils/api';
 import pb from '../utils/pocketbase';
+import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
+import sanitizeHtml from 'sanitize-html';
 
 function Content() {
    const { data, isLoading, error } = useContentQuery();
    const navigate = useNavigate();
+
+   const rawHtml = `${data?.content}`;
+   const safeHtml = sanitizeHtml(rawHtml);
 
    const shortDate = data?.created.substring(0, 10);
 
@@ -45,33 +50,38 @@ function Content() {
             <title>{`${data?.title} | minje blog`}</title>
          </Helmet>
          <Toaster />
-         <main className="mx-auto flex w-full flex-col border-t px-4 text-xs text-neutral-800">
+         <motion.main
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mx-auto flex w-full flex-col border-t text-xs text-neutral-800"
+         >
             <article>
-               <h1 className="py-1 text-center">{data?.title}</h1>
-               <span className="mb-2 flex justify-end">{shortDate}</span>
+               <h1 className="py-2 text-center text-sm">{data?.title}</h1>
+               <span className="mb-1 flex justify-end">{shortDate}</span>
                <div className="flex flex-row justify-end">
                   <Link to={`/edit/${data?.id}`} onClick={handleEdit}>
                      수정
                   </Link>
                   |<button onClick={handleDeleteCheck}>삭제</button>
                </div>
-               {data?.img && data?.img.length !== 0
-                  ? data?.img.map((img: string) => (
-                       <p key={img}>
+               <p className="px-3 py-3">
+                  {data?.img && data?.img.length !== 0
+                     ? data?.img.map((img: string) => (
                           <img
-                             className="mb-1 w-3/4"
+                             key={img}
+                             className="mb-3 w-full"
                              src={`${import.meta.env.VITE_PB_API}/files/${data.collectionName}/${data?.id}/${img}`}
                              alt="본문 이미지"
                              width={130}
                           />
-                       </p>
-                    ))
-                  : null}
-               {data ? <p>{data.content}</p> : null}
+                       ))
+                     : null}
+                  <div dangerouslySetInnerHTML={{ __html: safeHtml }}></div>
+               </p>
                {isLoading ? <span>Loading...</span> : null}
                {error ? <span>error!</span> : null}
             </article>
-         </main>
+         </motion.main>
       </>
    );
 }

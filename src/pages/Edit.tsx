@@ -1,9 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import pb from '../utils/pocketbase';
 import { useEffect, useState } from 'react';
 import { useEditQuery } from '../utils/api';
 import { Helmet } from 'react-helmet-async';
+import ReactQuill from 'react-quill';
 
 function Edit() {
    const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Edit() {
       handleSubmit,
       watch,
       setValue,
+      control,
       formState: { errors },
    } = useForm();
 
@@ -30,6 +32,7 @@ function Edit() {
       }
       setValue('title', data?.title);
       setValue('content', data?.content);
+      setValue('content2', data?.content2);
    }, [setValue]);
 
    async function onValid(data: any) {
@@ -107,9 +110,6 @@ function Edit() {
       }
    };
 
-   console.log(watch('img'));
-   console.log(data);
-
    return (
       <>
          <Helmet>
@@ -137,19 +137,6 @@ function Edit() {
                   placeholder="제목"
                />
                <span>{JSON.stringify(errors.title?.message)}</span>
-               <textarea
-                  className="focus-custom-slim input-basic pb-32 pt-1"
-                  {...register('content', {
-                     required: '내용을 입력해 주세요',
-                     maxLength: {
-                        value: 3000,
-                        message: '제목은 3000자 이내로 입력해 주세요',
-                     },
-                  })}
-                  placeholder="내용"
-               />
-               <span>{JSON.stringify(errors.content?.message)}</span>
-
                <label
                   htmlFor="imageInput"
                   className="focus-custom-slim input-basic text-center"
@@ -166,11 +153,26 @@ function Edit() {
                      id="imageInput"
                   />
                </label>
-
                {preview && (
                   <img src={preview + ''} alt={`미리보기`} className="w-3/4" />
                )}
-               <div className="flex w-full flex-row justify-between">
+               <Controller
+                  name="content"
+                  control={control}
+                  defaultValue={''}
+                  rules={{ required: '내용은 필수입니다.' }}
+                  render={({ field }) => (
+                     <ReactQuill
+                        value={field.value}
+                        onChange={(value) => {
+                           field.onChange(value);
+                        }}
+                        theme="snow"
+                     />
+                  )}
+               />{' '}
+               <span>{JSON.stringify(errors.content?.message)}</span>
+               <div className="mt-10 flex w-full flex-row justify-between">
                   <button
                      type="submit"
                      className="focus-custom-slim input-basic w-full font-medium"
