@@ -5,24 +5,29 @@ import { motion } from 'framer-motion';
 import toast, { Toaster } from 'react-hot-toast';
 import { Helmet } from 'react-helmet-async';
 import sanitizeHtml from 'sanitize-html';
+import { IDatas } from '../types';
+import Loading from '../components/Loading';
 
 function Content() {
    const { data, isLoading, error } = useContentQuery();
+   const typedData = data as IDatas;
    const navigate = useNavigate();
 
-   const rawHtml = `${data?.content}`;
+   const rawHtml = `${typedData?.content}`;
    const safeHtml = sanitizeHtml(rawHtml);
 
-   const shortDate = data?.created.substring(0, 10);
+   const shortDate = typedData?.created.substring(0, 10);
 
    const handleEdit = () => {
-      localStorage.setItem('collectionName', `${data?.collectionName}`);
+      localStorage.setItem('collectionName', `${typedData?.collectionName}`);
    };
 
    const handleDelete = async () => {
       try {
-         await pb.collection(`${data?.collectionName}`).delete(`${data?.id}`);
-         navigate(`/${data?.collectionName.toLowerCase()}`);
+         await pb
+            .collection(`${typedData?.collectionName}`)
+            .delete(`${typedData?.id}`);
+         navigate(`/${typedData?.collectionName.toLowerCase()}`);
          navigate(0);
       } catch (error) {
          console.error('글 삭제에 실패하였습니다.', error);
@@ -47,7 +52,7 @@ function Content() {
    return (
       <>
          <Helmet>
-            <title>{`${data?.title} | minje blog`}</title>
+            <title>{`${typedData?.title} | minje blog`}</title>
          </Helmet>
          <Toaster />
          <motion.main
@@ -56,21 +61,25 @@ function Content() {
             className="mx-auto flex w-full flex-col border-t text-xs text-neutral-800"
          >
             <article>
-               <h1 className="py-2 text-center text-sm">{data?.title}</h1>
-               <span className="mb-1 flex justify-end">{shortDate}</span>
+               <h1 className="py-[6px] text-center text-sm font-medium">
+                  {typedData?.title}
+               </h1>
+               <span className="mb-1 flex justify-end font-light">
+                  {shortDate}
+               </span>
                <div className="flex flex-row justify-end">
-                  <Link to={`/edit/${data?.id}`} onClick={handleEdit}>
+                  <Link to={`/edit/${typedData?.id}`} onClick={handleEdit}>
                      수정
                   </Link>
                   |<button onClick={handleDeleteCheck}>삭제</button>
                </div>
-               <p className="px-3 py-3">
-                  {data?.img && data?.img.length !== 0
-                     ? data?.img.map((img: string) => (
+               <p className="px-4 py-5 text-sm">
+                  {typedData?.img && typedData?.img.length !== 0
+                     ? typedData?.img.map((img: string) => (
                           <img
                              key={img}
                              className="mb-3 w-full"
-                             src={`${import.meta.env.VITE_PB_API}/files/${data.collectionName}/${data?.id}/${img}`}
+                             src={`${import.meta.env.VITE_PB_API}/files/${typedData.collectionName}/${typedData?.id}/${img}`}
                              alt="본문 이미지"
                              width={130}
                           />
@@ -78,7 +87,7 @@ function Content() {
                      : null}
                   <div dangerouslySetInnerHTML={{ __html: safeHtml }}></div>
                </p>
-               {isLoading ? <span>Loading...</span> : null}
+               {isLoading ? <Loading width={35} /> : null}
                {error ? <span>error!</span> : null}
             </article>
          </motion.main>

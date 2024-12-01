@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import Tilt from '../components/Tilt';
+import Loading from '../components/Loading';
 
 const basicVar = {
    initial: { opacity: 0 },
@@ -74,7 +75,7 @@ function Home() {
                animate="animate"
                className="flex max-w-96 flex-col gap-2 rounded-xl bg-neutral-100 p-4"
             >
-               {isLoading ? <span>Loading...</span> : null}
+               {isLoading ? <Loading width={40} /> : null}
                {error ? <span>error!</span> : null}
                {data?.map((data) => (
                   <figure

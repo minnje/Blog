@@ -3,6 +3,7 @@ import { getProfile } from '../utils/api';
 import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 import Tilt from './Tilt';
+import Loading from './Loading';
 
 export const basicVar = {
    initial: { opacity: 0 },
@@ -47,7 +48,7 @@ function Sidebar() {
          animate="animate"
          className="flex h-fit min-w-44 flex-col gap-5 rounded-xl"
       >
-         {isLoading ? <span>Loading...</span> : null}
+         {isLoading ? <Loading width={35} /> : null}
          {error ? <span>error!</span> : null}
          {data?.map((data) => (
             <figure key={data.id} className="mb-1 flex flex-col gap-2 p-1">

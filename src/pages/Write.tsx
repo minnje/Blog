@@ -13,7 +13,6 @@ function Write() {
       register,
       handleSubmit,
       control,
-      watch,
       formState: { errors },
    } = useForm();
 

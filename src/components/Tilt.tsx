@@ -1,8 +1,18 @@
 import { useEffect, useRef, HTMLAttributes } from 'react';
 import VanillaTilt from 'vanilla-tilt';
 
+declare global {
+   interface HTMLDivElement {
+      vanillaTilt?: {
+         destroy: () => void;
+      };
+   }
+}
+
+type VanillaTiltOptions = Parameters<typeof VanillaTilt.init>[1];
+
 interface TiltProps extends HTMLAttributes<HTMLDivElement> {
-   options: VanillaTilt.Options;
+   options: VanillaTiltOptions;
 }
 
 const Tilt: React.FC<TiltProps> = ({ options, ...props }) => {

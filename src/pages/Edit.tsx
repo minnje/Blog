@@ -5,17 +5,18 @@ import { useEffect, useState } from 'react';
 import { useEditQuery } from '../utils/api';
 import { Helmet } from 'react-helmet-async';
 import ReactQuill from 'react-quill';
+import { IDatas } from '../types';
 
 function Edit() {
    const navigate = useNavigate();
    const { editId } = useParams();
-   const { data, isLoading, error } = useEditQuery();
+   const { data } = useEditQuery();
+   const typedData = data as IDatas;
    const collectionName = localStorage.getItem('collectionName');
 
    const {
       register,
       handleSubmit,
-      watch,
       setValue,
       control,
       formState: { errors },
@@ -24,23 +25,22 @@ function Edit() {
    const [preview, setPreview] = useState<string | null>(null);
 
    useEffect(() => {
-      if (data?.img && data?.img.length !== 0) {
-         setValue('img', data?.img);
+      if (typedData?.img && typedData?.img.length !== 0) {
+         setValue('img', typedData?.img);
          setPreview(
-            `${import.meta.env.VITE_PB_API}/files/${data?.collectionName}/${data?.id}/${data?.img}`
+            `${import.meta.env.VITE_PB_API}/files/${typedData?.collectionName}/${typedData?.id}/${typedData?.img}`
          );
       }
-      setValue('title', data?.title);
-      setValue('content', data?.content);
-      setValue('content2', data?.content2);
+      setValue('title', typedData?.title);
+      setValue('content', typedData?.content);
    }, [setValue]);
 
-   async function onValid(data: any) {
+   async function onValid(typedData: any) {
       if (errors === null) {
          return;
       }
       if (collectionName === 'Memo') {
-         const { title, content, img } = data;
+         const { title, content, img } = typedData;
 
          if (img && img[0]) {
             const formData = new FormData();
@@ -65,7 +65,7 @@ function Edit() {
          }
          navigate('/memo');
       } else if (collectionName === 'Troubleshooting') {
-         const { title, content, img } = data;
+         const { title, content, img } = typedData;
 
          if (img && img[0]) {
             const formData = new FormData();

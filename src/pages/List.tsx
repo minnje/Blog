@@ -5,18 +5,20 @@ import { motion } from 'framer-motion';
 import { basicVar, slideVar } from '../components/Sidebar';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { IDatas } from '../types';
+import Loading from '../components/Loading';
 
 function List() {
    const location = useLocation();
    const { data, isLoading, error } = useListQuery();
-
+   const typedData = data as IDatas;
    const MotionNavLink = motion(NavLink);
 
    return (
       <>
          <Helmet>
             <title>
-               {`${data ? data[0]?.collectionName : location.pathname.substring(1)} | minje blog`}
+               {`${typedData ? typedData[0]?.collectionName : location.pathname.substring(1)} | minje blog`}
             </title>
             <script
                src="https://kit.fontawesome.com/7e06fe1b34.js"
@@ -72,15 +74,18 @@ function List() {
                   <h2 id="section-title" className="mb-2 block border-b px-1">
                      제목
                   </h2>
-                  {isLoading ? <li>Loading...</li> : null}
+                  {isLoading ? <Loading width={35} /> : null}
                   {error ? <li>error!</li> : null}
-                  {data?.map((data) => (
-                     <li key={data.id} className="mb-1 rounded-2xl font-light">
+                  {typedData?.map((typedData) => (
+                     <li
+                        key={typedData.id}
+                        className="mb-1 rounded-2xl font-light"
+                     >
                         <MotionNavLink
                            variants={slideVar}
                            whileHover={{ backgroundColor: '#f5f5f5' }}
                            whileTap={{ scale: 0.95 }}
-                           to={`${data.id}`}
+                           to={`${typedData.id}`}
                            role="link"
                            className={({ isActive }) =>
                               `focus-custom-slim block cursor-pointer px-[5px] ${
@@ -90,7 +95,7 @@ function List() {
                               }`
                            }
                         >
-                           {data.title}
+                           {typedData.title}
                         </MotionNavLink>
                      </li>
                   ))}
