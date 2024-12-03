@@ -31,36 +31,6 @@ function List() {
             animate="animate"
             className="flex w-full flex-col rounded-xl bg-white p-3"
          >
-            {location.pathname === '/memo' ? (
-               <Link
-                  to={`${location.pathname}/write`}
-                  aria-label="글쓰기 페이지로 이동"
-                  className="focus-custom-slim w-fit"
-               >
-                  <span
-                     className="mx-4 border-b border-neutral-600 text-xs"
-                     tabIndex={-1}
-                  >
-                     <i className="fa-regular fa-pen-to-square" aria-hidden></i>
-                     글쓰기
-                  </span>
-               </Link>
-            ) : location.pathname === '/troubleshooting' ? (
-               <Link
-                  to={`${location.pathname}/write`}
-                  aria-label="글쓰기 페이지로 이동"
-                  className="focus-custom-slim w-fit"
-               >
-                  <span
-                     className="mx-4 border-b border-neutral-600 text-xs"
-                     tabIndex={-1}
-                  >
-                     <i className="fa-regular fa-pen-to-square" aria-hidden></i>
-                     글쓰기
-                  </span>
-               </Link>
-            ) : null}
-
             <nav className="mx-4 mb-9 mt-2 flex text-[.8125rem] text-neutral-800">
                <h1 className="mr-7 font-medium">
                   {location.pathname.includes('memo')
@@ -101,6 +71,43 @@ function List() {
                   ))}
                </ul>
             </nav>
+            <div className="mt-6 flex justify-center">
+               {location.pathname === '/memo' ? (
+                  <Link
+                     to={`${location.pathname}/write`}
+                     aria-label="글쓰기 페이지로 이동"
+                     className="focus-custom-slim w-fit"
+                  >
+                     <span
+                        className="mx-4 border-b border-neutral-600 text-sm"
+                        tabIndex={-1}
+                     >
+                        <i
+                           className="fa-regular fa-pen-to-square"
+                           aria-hidden
+                        ></i>
+                        글쓰기
+                     </span>
+                  </Link>
+               ) : location.pathname === '/troubleshooting' ? (
+                  <Link
+                     to={`${location.pathname}/write`}
+                     aria-label="글쓰기 페이지로 이동"
+                     className="focus-custom-slim w-fit"
+                  >
+                     <span
+                        className="mx-4 border-b border-neutral-600 text-sm"
+                        tabIndex={-1}
+                     >
+                        <i
+                           className="fa-regular fa-pen-to-square"
+                           aria-hidden
+                        ></i>
+                        글쓰기
+                     </span>
+                  </Link>
+               ) : null}
+            </div>
             <Outlet />
          </motion.div>
       </>
