@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import pb from '../utils/pocketbase';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useEditQuery } from '../utils/api';
 import { Helmet } from 'react-helmet-async';
 import ReactQuill from 'react-quill';

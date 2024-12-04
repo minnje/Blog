@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 @layer components {
-   .focus-custom {
-      @apply focus:outline-none focus:ring-4 focus:ring-main;
-   }
-   .focus-custom-slim {
-      @apply rounded-2xl focus:outline-none focus:ring-2 focus:ring-main;
-   }
-   .input-basic {
-      @apply px-2 py-1 text-sm;
-   }
+    .focus-custom {
+        @apply focus:outline-none focus:ring-4 focus:ring-main;
+    }
+    .focus-custom-slim {
+        @apply rounded-2xl focus:outline-none focus:ring-2 focus:ring-main;
+    }
+    .input-basic {
+        @apply px-2 py-1 text-sm;
+    }
 }
