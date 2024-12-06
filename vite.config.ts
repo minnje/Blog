@@ -5,6 +5,7 @@ import { fileURLToPath, URL } from 'node:url';
 // https://vitejs.dev/config/
 export default defineConfig({
     base: '/',
+    assetsInclude: ['**/*.jpg', '**/*.png', '**/*.jpeg', '**/*.svg'],
     define: {
         'process.env': process.env,
     },
