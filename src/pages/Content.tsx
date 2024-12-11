@@ -18,6 +18,9 @@ function Content() {
 
     const shortDate = typedData?.created.substring(0, 10);
 
+    const pbAuth = localStorage.getItem('pocketbase_auth');
+    const parsedPbAuth = JSON.parse(pbAuth).token;
+
     const handleEdit = () => {
         localStorage.setItem('collectionName', `${typedData?.collectionName}`);
     };
@@ -72,26 +75,28 @@ function Content() {
                     <span className="mb-1 mr-1 flex justify-end font-light">
                         {shortDate}
                     </span>
-                    <div className="mr-1 flex flex-row justify-end">
-                        <Link
-                            to={`/edit/${typedData?.id}`}
-                            onClick={handleEdit}
-                            role="button"
-                            className="focus-custom-slim mr-1 cursor-pointer px-[2px]"
-                            aria-label="글 수정하기"
-                        >
-                            수정
-                        </Link>
-                        |
-                        <button
-                            onClick={handleDeleteCheck}
-                            role="button"
-                            className="focus-custom-slim ml-1 cursor-pointer px-[2px]"
-                            aria-label="글 삭제하기"
-                        >
-                            삭제
-                        </button>
-                    </div>
+                    {parsedPbAuth === import.meta.env.VITE_PB_AUTH ? (
+                        <div className="mr-1 flex flex-row justify-end">
+                            <Link
+                                to={`/edit/${typedData?.id}`}
+                                onClick={handleEdit}
+                                role="button"
+                                className="focus-custom-slim mr-1 cursor-pointer px-[2px]"
+                                aria-label="글 수정하기"
+                            >
+                                수정
+                            </Link>
+                            |
+                            <button
+                                onClick={handleDeleteCheck}
+                                role="button"
+                                className="focus-custom-slim ml-1 cursor-pointer px-[2px]"
+                                aria-label="글 삭제하기"
+                            >
+                                삭제
+                            </button>
+                        </div>
+                    ) : null}
                     <p className="px-4 py-5 text-sm">
                         {isLoading ? <Loading width={35} /> : null}
                         {error ? <span role="alert">error!</span> : null}
