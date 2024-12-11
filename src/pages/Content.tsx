@@ -69,13 +69,15 @@ function Content() {
                     <h1 className="py-[6px] text-center text-sm font-medium">
                         {typedData?.title}
                     </h1>
-                    <span className="mb-1 flex justify-end font-light">
+                    <span className="mb-1 mr-1 flex justify-end font-light">
                         {shortDate}
                     </span>
-                    <div className="flex flex-row justify-end">
+                    <div className="mr-1 flex flex-row justify-end">
                         <Link
                             to={`/edit/${typedData?.id}`}
                             onClick={handleEdit}
+                            role="button"
+                            className="focus-custom-slim mr-1 cursor-pointer px-[2px]"
                             aria-label="글 수정하기"
                         >
                             수정
@@ -83,6 +85,8 @@ function Content() {
                         |
                         <button
                             onClick={handleDeleteCheck}
+                            role="button"
+                            className="focus-custom-slim ml-1 cursor-pointer px-[2px]"
                             aria-label="글 삭제하기"
                         >
                             삭제
