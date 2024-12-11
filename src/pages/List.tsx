@@ -15,9 +15,6 @@ function List() {
     const MotionNavLink = motion(NavLink);
     const MotionLink = motion(Link);
 
-    const pbAuth = localStorage.getItem('pocketbase_auth');
-    const parsedPbAuth = JSON.parse(pbAuth).token;
-
     const renderWriteLink = (path: string) => (
         <MotionLink
             to={`${path}/write`}
@@ -97,8 +94,7 @@ function List() {
                     </ul>
                 </nav>
                 <div className="mt-6 flex justify-center">
-                    {(parsedPbAuth === import.meta.env.VITE_PB_AUTH &&
-                        location.pathname === '/memo') ||
+                    {location.pathname === '/memo' ||
                     location.pathname === '/troubleshooting'
                         ? renderWriteLink(location.pathname)
                         : null}
