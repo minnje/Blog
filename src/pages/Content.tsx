@@ -106,9 +106,11 @@ function Content() {
                                   />
                               ))
                             : null}
-                        <div
-                            dangerouslySetInnerHTML={{ __html: safeHtml }}
-                        ></div>
+                        {typedData ? (
+                            <div
+                                dangerouslySetInnerHTML={{ __html: safeHtml }}
+                            ></div>
+                        ) : null}
                     </p>
                 </article>
             </motion.main>
