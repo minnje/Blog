@@ -73,26 +73,28 @@ function Content() {
                         {shortDate}
                     </span>
 
-                    <div className="mr-1 flex flex-row justify-end">
-                        <Link
-                            to={`/edit/${typedData?.id}`}
-                            onClick={handleEdit}
-                            role="button"
-                            className="focus-custom-slim mr-1 cursor-pointer px-[2px]"
-                            aria-label="글 수정하기"
-                        >
-                            수정
-                        </Link>
-                        |
-                        <button
-                            onClick={handleDeleteCheck}
-                            role="button"
-                            className="focus-custom-slim ml-1 cursor-pointer px-[2px]"
-                            aria-label="글 삭제하기"
-                        >
-                            삭제
-                        </button>
-                    </div>
+                    {process.env.NODE_ENV === 'development' && (
+                        <div className="mr-1 flex flex-row justify-end">
+                            <Link
+                                to={`/edit/${typedData?.id}`}
+                                onClick={handleEdit}
+                                role="button"
+                                className="focus-custom-slim mr-1 cursor-pointer px-[2px]"
+                                aria-label="글 수정하기"
+                            >
+                                수정
+                            </Link>
+                            |
+                            <button
+                                onClick={handleDeleteCheck}
+                                role="button"
+                                className="focus-custom-slim ml-1 cursor-pointer px-[2px]"
+                                aria-label="글 삭제하기"
+                            >
+                                삭제
+                            </button>
+                        </div>
+                    )}
 
                     <p className="px-4 py-5 text-sm">
                         {isLoading ? <Loading width={35} /> : null}

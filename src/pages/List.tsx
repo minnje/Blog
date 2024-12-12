@@ -94,8 +94,7 @@ function List() {
                     </ul>
                 </nav>
                 <div className="mt-6 flex justify-center">
-                    {location.pathname === '/memo' ||
-                    location.pathname === '/troubleshooting'
+                    {process.env.NODE_ENV === 'development'
                         ? renderWriteLink(location.pathname)
                         : null}
                 </div>
