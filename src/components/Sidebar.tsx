@@ -59,7 +59,7 @@ function Sidebar() {
                 <figure key={data.id} className="mb-1 flex flex-col gap-2 p-1">
                     <Tilt options={options}>
                         <img
-                            className="rounded-xl"
+                            className="rounded-xl shadow-xl"
                             src={`${import.meta.env.VITE_PB_API}/files/users/${data?.id}/${data?.avatar}`}
                             alt="프로필 사진"
                             width={180}
@@ -68,7 +68,7 @@ function Sidebar() {
                     <div className="flex flex-col space-y-1 bg-transparent p-2">
                         <motion.figcaption
                             variants={slideVar}
-                            className="bg-transparent font-medium"
+                            className="bg-transparent font-medium leading-relaxed"
                         >
                             {data.name}
                         </motion.figcaption>

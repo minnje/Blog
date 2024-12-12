@@ -66,10 +66,10 @@ function Content() {
                 <article>
                     {isLoading ? <Loading width={35} /> : null}
                     {error ? <span role="alert">error!</span> : null}
-                    <h1 className="py-[6px] text-center text-sm font-medium">
+                    <h1 className="py-2 text-center text-[13px]">
                         {typedData?.title}
                     </h1>
-                    <span className="mb-1 mr-1 flex justify-end font-light">
+                    <span className="mb-1 mr-1 flex justify-end">
                         {shortDate}
                     </span>
 
@@ -96,7 +96,7 @@ function Content() {
                         </div>
                     )}
 
-                    <p className="px-4 py-5 text-sm">
+                    <p className="px-4 py-5 text-[13px] font-light leading-normal">
                         {isLoading ? <Loading width={35} /> : null}
                         {error ? <span role="alert">error!</span> : null}
                         {typedData?.img && typedData?.img.length !== 0

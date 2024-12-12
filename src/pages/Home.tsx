@@ -68,7 +68,7 @@ function Home() {
                     variants={basicVar}
                     initial="initial"
                     animate="animate"
-                    className="flex max-w-96 flex-col gap-2 rounded-xl bg-neutral-100 p-4"
+                    className="flex max-w-96 flex-col gap-2 rounded-xl bg-gradient-to-tr from-neutral-200 to-neutral-100 p-4"
                 >
                     {isLoading ? <Loading width={40} /> : null}
                     {error ? <span role="alert">error!</span> : null}
