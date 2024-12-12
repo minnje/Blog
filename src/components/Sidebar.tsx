@@ -30,7 +30,12 @@ export const slideVar = {
 function Sidebar() {
     const { isLoading, error, data } = useQuery('profile', getProfile);
 
-    const MotionNavLink = motion(NavLink);
+    const navItems = [
+        { to: '/memo', label: 'Memo' },
+        { to: '/troubleshooting', label: 'Trouble shooting' },
+    ];
+
+    const MotionNav = motion(NavLink);
 
     const options = {
         max: 25,
@@ -78,38 +83,24 @@ function Sidebar() {
             ))}
             <nav>
                 <ul className="flex flex-col gap-2 px-1 py-2 text-xs">
-                    <motion.li variants={slideVar} tabIndex={-1}>
-                        <MotionNavLink
-                            to="/memo"
-                            whileHover={{ backgroundColor: '#f5f5f5' }}
-                            whileTap={{ scale: 0.95 }}
-                            className={({ isActive }) =>
-                                `focus-custom block rounded-2xl px-2 py-[.375rem] ${
-                                    isActive
-                                        ? 'font-medium shadow-xl ring-2 ring-main'
-                                        : ''
-                                }`
-                            }
-                        >
-                            Memo
-                        </MotionNavLink>
-                    </motion.li>
-                    <motion.li variants={slideVar} tabIndex={-1}>
-                        <MotionNavLink
-                            to="/troubleshooting"
-                            whileHover={{ backgroundColor: '#f5f5f5' }}
-                            whileTap={{ scale: 0.95 }}
-                            className={({ isActive }) =>
-                                `focus-custom block rounded-2xl px-2 py-[.375rem] ${
-                                    isActive
-                                        ? 'font-medium shadow-xl ring-2 ring-main'
-                                        : ''
-                                }`
-                            }
-                        >
-                            Trouble shooting
-                        </MotionNavLink>
-                    </motion.li>
+                    {navItems.map(({ to, label }) => (
+                        <motion.li key={to} variants={slideVar} tabIndex={-1}>
+                            <MotionNav
+                                to={to}
+                                whileHover={{ backgroundColor: '#f5f5f5' }}
+                                whileTap={{ scale: 0.95 }}
+                                className={({ isActive }) =>
+                                    `focus-custom block rounded-2xl px-2 py-[.375rem] ${
+                                        isActive
+                                            ? 'font-medium shadow-xl ring-2 ring-main'
+                                            : ''
+                                    }`
+                                }
+                            >
+                                {label}
+                            </MotionNav>
+                        </motion.li>
+                    ))}
                 </ul>
             </nav>
         </motion.div>
